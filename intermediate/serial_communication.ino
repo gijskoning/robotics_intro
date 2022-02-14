@@ -2,6 +2,8 @@
 This code can be added to your main file to add serial communication with python
  ****************************************************/
 #define INPUT_SIZE 30 // define size of the input messages. Should be large enough
+char input[INPUT_SIZE + 1];
+
 const int inputs = 1;
 void setup() {
   Serial.begin(115200);
