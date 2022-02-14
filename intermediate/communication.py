@@ -19,7 +19,7 @@ class ArduinoCommunication:
         _bytes = bytes(str(x), 'utf-8')
         self.arduino.write(_bytes)
         # Wait a bit to allow for messages from arduino to return
-        time.sleep(0.05)
+        time.sleep(0.01)
         data = self.arduino.readlines()
         if debug and data is not None:
             for line in data:
