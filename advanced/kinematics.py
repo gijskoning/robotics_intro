@@ -131,7 +131,7 @@ class RobotArm3dof:
         self.end_p = self.FK_end_p()
 
         if self.arduino_control is not None:
-            self.arduino_control.sent_action(self.q)
+            self.arduino_control.set_servo(self.q)
 
         return self.end_p, self.q, dq
 
@@ -144,7 +144,7 @@ class RobotArm3dof:
         self.end_p = self.FK_end_p()
 
         if self.arduino_control is not None:
-            self.arduino_control.sent_action(self.q)
+            self.arduino_control.set_servo(self.q)
 
     # def constraint(self, dq):
     #     # Could add constraints to your robot arm
