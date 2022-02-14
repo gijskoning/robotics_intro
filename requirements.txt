@@ -1,0 +1,9 @@
+# A requirements file is useful for versioning your dependencies
+# Also to install all dependencies easy using 'pip install -r requirements.txt'
+Matplotlib
+opencv-python
+pyserial
+pygame
+# Some basics
+setuptools
+wheel
