@@ -8,9 +8,6 @@ from serial import Serial
 class ArduinoCommunication:
 
     def __init__(self, port='COM4'):
-        # You need to find out which port is used. This is not always COM4.
-        # In powershell for windows use this command to find it 'Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }'
-        # In ubuntu this is in the format: '/dev/ttyUSB0'
         print(f"trying port: {port}")
         # Baudrate should be the same as the rate on the arduino. Faster rate is higher data bandthwidth.
         #  However is less robust
