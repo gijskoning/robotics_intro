@@ -26,17 +26,18 @@ class ArduinoCommunication:
                 print("Arduino msg:", line)
         return data
 
-    def set_servo(self, q, debug=False):
+    def set_servo(self, q, debug=True):
         """
         :param q: numpy array for each joint angle
         :return:
         """
-        resolution = 200 # Set some integer resolution to be used when sending
+        resolution = 200  # Set some integer resolution to be used when sending
         print("q_global", q)
         q = q / math.pi * resolution
         q = np.clip(q, 0, resolution)
 
         q = q.astype(int)
         s1, = q
+
         self.write_message(f"0:{s1}", debug)
         # self.write_message(f"0:{s1},1:{s2},", debug)
