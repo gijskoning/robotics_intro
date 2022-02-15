@@ -14,7 +14,7 @@ if not cap.isOpened():
 # setup blob detection
 params = cv2.SimpleBlobDetector_Params()
 params.filterByColor = True
-params.blobColor = 0 # 0 - 255 filter light - dark colors
+params.blobColor = 0 # 0 - 255 extract dark blobs - extract light blobs
 detector = cv2.SimpleBlobDetector_create(params) #uses opencv 4.0.0
 
 while True:
@@ -32,10 +32,15 @@ while True:
     keypoints =  detector.detect(gray)
     #print(keypoints)
     frame_keypoints = cv2.drawKeypoints(frame, keypoints,np.array([]),(0,0,255),cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) 
-
+    if len(keypoints)>=1:
+        location = keypoints[0].pt #location in pixels (x,y), (floats)
+        #draw mini circle around center of blob
+        cv2.circle(frame_keypoints,(int(location[0]),int(location[1])),5,(255,255,0), 1)
     cv2.imshow('Press q to exit', frame_keypoints)
-    #print(keypoints) # not working
 
+    #ideas
+    #make location relative to picturesize to determine angle?
+    
 cap.release()
 cv2.destroyAllWindows()
 #if not cap.isOpened():
