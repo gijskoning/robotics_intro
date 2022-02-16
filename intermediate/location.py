@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-import time #only to 'lower the framerate'
-
+import time 
+import serial
 
 #open video
 cap = cv2.VideoCapture(1)
@@ -9,16 +9,29 @@ cap = cv2.VideoCapture(1)
 if not cap.isOpened():
     print("camera not working, is the port correct?")
     quit()
-
-
 # setup blob detection
 params = cv2.SimpleBlobDetector_Params()
 params.filterByColor = True
 params.blobColor = 0 # 0 - 255 extract dark blobs - extract light blobs
 detector = cv2.SimpleBlobDetector_create(params) #uses opencv 4.0.0
 
+# setup serial connection
+# https://stackoverflow.com/questions/24214643/python-to-automatically-select-serial-ports-for-arduino
+ser = serial.Serial(
+    port='\\\\.\\COM4',
+    baudrate=9600,
+    parity=serial.PARITY_ODD)
+if ser.isOpen():
+    ser.close()
+ser.open()
 while True:
-    time.sleep(0.1)
+    ser.write("1")
+    time.sleep(1)
+    print("check")
+ser.close()
+
+while True:
+    #time.sleep(0.1)
     ret, frame = cap.read()
     if not ret:
         print("No frame recevied. Exiting...")
@@ -38,8 +51,6 @@ while True:
         cv2.circle(frame_keypoints,(int(location[0]),int(location[1])),5,(255,255,0), 1)
     cv2.imshow('Press q to exit', frame_keypoints)
 
-    #ideas
-    #make location relative to picturesize to determine angle?
     
 cap.release()
 cv2.destroyAllWindows()
